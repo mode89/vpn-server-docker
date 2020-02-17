@@ -24,5 +24,9 @@ source vars
 
 ./clean-all || exit_on_error
 ./build-ca --batch || exit_on_error
-./build-key-server --batch MyServer || exit_on_error
+./build-key-server --batch $KEY_NAME || exit_on_error
 ./build-dh || exit_on_error
+
+cd $OPENVPN_CA_DIR/keys
+cp ca.crt $KEY_NAME.crt $KEY_NAME.key dh2048.pem /etc/openvpn/server || \
+    exit_on_error
