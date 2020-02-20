@@ -5,6 +5,9 @@ exit_on_error() {
     exit 1
 }
 
+if [ ! -e $OPENVPN_CA_DIR ]; then
+    make-cadir $OPENVPN_CA_DIR || exit_on_error
+fi
 cd $OPENVPN_CA_DIR
 
 sed -i "s/\(^export KEY_COUNTRY=\)\".*\"/\1\"US\"/" vars || exit_on_error
@@ -28,5 +31,5 @@ source vars
 ./build-dh || exit_on_error
 
 cd $OPENVPN_CA_DIR/keys
-cp ca.crt $KEY_NAME.crt $KEY_NAME.key dh2048.pem /etc/openvpn/server || \
+cp ca.crt $KEY_NAME.crt $KEY_NAME.key dh2048.pem ${OPENVPN_DIR:?} || \
     exit_on_error

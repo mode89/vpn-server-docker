@@ -9,8 +9,8 @@ RUN apt-get install -y \
 
 RUN apt-get install -y htop vim
 
-ENV OPENVPN_CA_DIR /openvpn-ca
-RUN make-cadir ${OPENVPN_CA_DIR:?}
+ENV OPENVPN_DIR /srv/openvpn
+ENV OPENVPN_CA_DIR ${OPENVPN_DIR}/ca
 
 COPY container/configure-openvpn-server /usr/local/bin/
-COPY container/server.conf /etc/openvpn/server/config
+COPY container/server.conf ${OPENVPN_DIR}/
