@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname $BASH_SOURCE[0])
+
+docker run --rm --interactive --tty \
+    --volume /srv/openvpn:/srv/openvpn \
+    vpn \
+    configure-openvpn-server
+
+cp $SCRIPT_DIR/server.conf /srv/openvpn/
