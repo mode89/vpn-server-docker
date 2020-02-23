@@ -8,3 +8,4 @@ docker run --rm --interactive --tty \
     configure-openvpn-server
 
 cp $SCRIPT_DIR/server.conf /srv/openvpn/
+cp $SCRIPT_DIR/client.ovpn.base /srv/openvpn/

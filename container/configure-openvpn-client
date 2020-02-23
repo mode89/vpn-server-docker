@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+exit_on_error() {
+    echo "Error occured!"
+    exit 1
+}
+
+cd ${OPENVPN_CA_DIR:?}
+source vars
+./build-key --batch ${1} || exit_on_error
+
+KEY_DIR=${OPENVPN_CA_DIR}/keys/
+
+cat ${OPENVPN_DIR:?}/client.ovpn.base \
+    <(echo -e "\n<ca>") \
+    ${KEY_DIR}/ca.crt \
+    <(echo -e "</ca>\n\n<cert>") \
+    ${KEY_DIR}/${1}.crt \
+    <(echo -e "</cert>\n\n<key>") \
+    ${KEY_DIR}/${1}.key \
+    <(echo -e "</key>") \
+    > /srv/openvpn/${1}.ovpn

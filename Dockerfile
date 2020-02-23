@@ -13,3 +13,4 @@ ENV OPENVPN_DIR /srv/openvpn
 ENV OPENVPN_CA_DIR ${OPENVPN_DIR}/ca
 
 COPY container/configure-openvpn-server /usr/local/bin/
+COPY container/configure-openvpn-client /usr/local/bin/
