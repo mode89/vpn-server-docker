@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --publish 1194:1194 \
+    --device /dev/net/tun \
+    --cap-add NET_ADMIN \
+    --workdir /srv/openvpn \
+    --volume /srv/openvpn:/srv/openvpn \
+    vpn \
+    openvpn --config server.conf
