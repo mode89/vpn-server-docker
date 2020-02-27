@@ -2,10 +2,36 @@
 
 SCRIPT_DIR=$(dirname $BASH_SOURCE[0])
 
-docker run --rm --interactive --tty \
-    --volume /srv/openvpn:/srv/openvpn \
-    vpn \
-    configure-openvpn-server
+CONFIG_DIR=/srv/openvpn
 
-cp $SCRIPT_DIR/server.conf /srv/openvpn/
-cp $SCRIPT_DIR/client.ovpn.base /srv/openvpn/
+parse_arguments() {
+    for arg in $@; do
+        case $arg in
+            --clean)
+                clean
+                shift;;
+        esac
+    done
+}
+
+clean() {
+    echo "Cleaning previous configuration ..."
+    if [ -d $CONFIG_DIR ]; then
+        echo Removing configuration host directory ...
+        rm -r $CONFIG_DIR
+    fi
+}
+
+configure() {
+    echo "Configuring ..."
+    docker run --rm --interactive --tty \
+        --volume $CONFIG_DIR:$CONFIG_DIR \
+        vpn \
+        configure-openvpn-server
+
+    cp $SCRIPT_DIR/server.conf $CONFIG_DIR
+    cp $SCRIPT_DIR/client.ovpn.base $CONFIG_DIR
+}
+
+parse_arguments $@
+configure
