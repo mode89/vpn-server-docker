@@ -22,6 +22,11 @@ clean() {
     fi
 }
 
+build_image() {
+    echo "Building docker image ..."
+    docker build --tag vpn $SCRIPT_DIR/../docker
+}
+
 configure() {
     echo "Configuring ..."
     docker run --rm --interactive --tty \
@@ -34,4 +39,5 @@ configure() {
 }
 
 parse_arguments $@
+build_image
 configure
