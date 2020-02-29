@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+CLIENTS_CONFIG_DIR=/srv/openvpn/client-config
+
 exit_on_error() {
     echo "Error occured!"
     exit 1
@@ -11,6 +13,12 @@ source vars
 
 KEY_DIR=${OPENVPN_CA_DIR}/keys/
 
+if [ ! -d $CLIENTS_CONFIG_DIR ]; then
+    echo "Creating clients configuration directory ..."
+    mkdir $CLIENTS_CONFIG_DIR
+fi
+
+echo "Writing configuration files ..."
 cat ${OPENVPN_DIR:?}/client.ovpn.base \
     <(echo -e "\n<ca>") \
     ${KEY_DIR}/ca.crt \
@@ -19,4 +27,4 @@ cat ${OPENVPN_DIR:?}/client.ovpn.base \
     <(echo -e "</cert>\n\n<key>") \
     ${KEY_DIR}/${1}.key \
     <(echo -e "</key>") \
-    > /srv/openvpn/${1}.ovpn
+    > $CLIENTS_CONFIG_DIR/${1}.ovpn
