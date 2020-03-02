@@ -2,6 +2,7 @@
 
 docker run \
     --rm \
+    --detach \
     --interactive \
     --tty \
     --publish 1194:1194 \

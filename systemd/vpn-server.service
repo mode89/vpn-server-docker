@@ -1,0 +1,10 @@
+[Unit]
+Description=OpenVPN server container
+After=docker
+Requires=docker
+
+[Service]
+ExecStart=vpn-run-server
+
+[Install]
+WantedBy=multi-user.target
