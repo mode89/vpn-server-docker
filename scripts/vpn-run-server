@@ -5,7 +5,7 @@ docker run \
     --detach \
     --interactive \
     --tty \
-    --publish 1194:1194 \
+    --publish 13000:13000 \
     --device /dev/net/tun \
     --cap-add NET_ADMIN \
     --workdir /srv/openvpn \
