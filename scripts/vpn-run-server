@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 docker run \
+    --name vpn-server \
     --rm \
     --detach \
     --interactive \
