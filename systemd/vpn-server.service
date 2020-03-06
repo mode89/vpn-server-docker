@@ -5,6 +5,7 @@ Requires=docker
 
 [Service]
 ExecStart=vpn-run-server
+ExecStop=docker stop vpn-server
 
 [Install]
 WantedBy=multi-user.target
