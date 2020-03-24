@@ -9,4 +9,5 @@ comp-lzo
 persist-key
 persist-tun
 
+log /var/log/openvpn.log
 verb 3
