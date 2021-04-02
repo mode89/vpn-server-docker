@@ -2,7 +2,8 @@
 
 docker run \
     --name vpn-server \
-    --rm \
+    --restart always \
+    --detach \
     --tty \
     --publish 13000:13000 \
     --device /dev/net/tun \
